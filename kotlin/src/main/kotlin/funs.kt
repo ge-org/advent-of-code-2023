@@ -10,3 +10,5 @@ fun readLines(name: String): List<String> = Thread.currentThread().contextClassL
     .getResourceAsStream(name).use { inputStream ->
         BufferedReader(InputStreamReader(inputStream as InputStream)).readLines()
     }
+
+fun String.frequency() = toList().groupingBy { it }.eachCount()
