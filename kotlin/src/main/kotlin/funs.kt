@@ -6,9 +6,11 @@ fun <T> T.println(): T = this.also { println(this) }
 
 fun <T> T.check(expected: Any): T = this.also { check(this == expected) { "expected $expected but is $this" } }
 
-fun readLines(name: String): List<String> = Thread.currentThread().contextClassLoader
+fun readFile(name: String): String = Thread.currentThread().contextClassLoader
     .getResourceAsStream(name).use { inputStream ->
-        BufferedReader(InputStreamReader(inputStream as InputStream)).readLines()
+        BufferedReader(InputStreamReader(inputStream as InputStream)).readText().trim()
     }
+
+fun readLines(name: String): List<String> = readFile(name).lines()
 
 fun String.frequency() = toList().groupingBy { it }.eachCount()
